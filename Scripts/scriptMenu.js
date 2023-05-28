@@ -1,24 +1,33 @@
-openMenu.addEventListener('click', () => {
-    menu.style.display = 'flex'
+const openMenuButton = document.getElementById('openMenu');
+const closeMenuButton = document.getElementById('closeMenu');
+const menu = document.getElementById('menu');
 
-    menu.style.right = (menu.offsetWidth * -1) + 'px'
+function openMenu() {
+  menu.style.display = 'flex';
+  menu.style.right = `-${menu.offsetWidth}px`;
+  openMenuButton.style.display = 'none';
 
-    openMenu.style.display = 'none'
+  if (window.innerWidth <= 717) {
+    menu.classList.add('animated-menu');
+  }
 
-    setTimeout(() => {
-        menu.style.opacity = '1'
+  setTimeout(() => {
+    menu.style.opacity = '1';
+    menu.style.right = '0';
+  }, 10);
+}
 
-        menu.style.right = '0'
-    }, 10)
-})
+function closeMenu() {
+  menu.style.opacity = '0';
+  menu.style.right = `-${menu.offsetWidth}px`;
 
-closeMenu.addEventListener('click', () => {
-    menu.style.opacity = '0'
+  menu.classList.remove('animated-menu');
 
-    menu.style.right = (menu.offsetWidth * -1) + 'px'
+  setTimeout(() => {
+    menu.removeAttribute('style');
+    openMenuButton.removeAttribute('style');
+  }, 200);
+}
 
-    setTimeout(() => {
-        menu.removeAttribute('style')
-        openMenu.removeAttribute('style')
-    }, 200)
-})
+openMenuButton.addEventListener('click', openMenu);
+closeMenuButton.addEventListener('click', closeMenu);
